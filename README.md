@@ -2,6 +2,8 @@
 
 Um espaço pessoal para organizar a estante, descobrir livros e acompanhar o hábito da leitura. Projeto acadêmico original no domínio de leitura, seguindo o **cenário 1.1** do enunciado: **interface → API própria → API externa**.
 
+Repositórios publicados e públicos: [interface `entrelinhas-web`](https://github.com/Ziragn/entrelinhas-web) e [API `entrelinhas-api`](https://github.com/Ziragn/entrelinhas-api).
+
 ![Interface Entrelinhas](docs/preview-desktop.png)
 
 ## Funcionalidades
@@ -26,7 +28,7 @@ Um espaço pessoal para organizar a estante, descobrir livros e acompanhar o há
 | Open Library | Catálogo bibliográfico público, mantido por terceiros | `https://openlibrary.org/search.json` |
 | SQLite | Persistência interna da API; não é contado como componente externo | Arquivo local / volume Docker |
 
-Os componentes próprios funcionam como serviços separados. O código da interface não lê o banco. As chamadas saem do navegador para a API via REST/JSON, com CORS restrito às origens locais. A API consulta o catálogo externo por HTTPS, transforma a resposta e envia os metadados para a interface. A consulta **não redireciona** para outra aplicação.
+Os componentes próprios funcionam como serviços separados. O código da interface não lê o banco. As chamadas saem do navegador para a API via REST/JSON, com controle de origens via CORS. A API consulta o catálogo externo por HTTPS, transforma a resposta e envia os metadados para a interface. A consulta **não redireciona** para outra aplicação.
 
 ## Instalação local com ambiente virtual
 
@@ -82,6 +84,10 @@ São oito registros explicitamente demonstrativos, inseridos apenas se a estante
 
 ## Execução com Docker
 
+**CONCLUÍDO — execução validada no GitHub Codespaces.** Os componentes foram iniciados com `docker compose up -d` e conferidos com `docker compose ps`: `entrelinhas-api` e `entrelinhas-web` ficaram **healthy**, com API na porta **8000** e interface na **8080**. Nesse ambiente, a porta **8000 precisou ser definida como pública** durante os testes para permitir chamadas do navegador à API. Essa validação foi realizada no Codespaces; não houve validação do Docker Desktop no Windows local.
+
+Foram testados Swagger em `/docs`, integração entre interface e API, os métodos **GET, POST, PATCH, PUT e DELETE** e persistência SQLite após derrubar e recriar os containers, mantendo o volume. Uma busca real por **“Dom Casmurro”** confirmou o fluxo interface em Docker → API em Docker → Open Library → API → interface. Veja o [relatório de validação](docs/VALIDACAO.md).
+
 Pré-requisito: Docker Engine/Desktop com Compose instalado e em execução. No Windows, o Docker Desktop precisa de virtualização/WSL2 conforme a [documentação oficial](https://docs.docker.com/desktop/setup/install/windows-install/).
 
 Na raiz **deste repositório**, com `entrelinhas-api` como pasta irmã:
@@ -120,7 +126,7 @@ docker run --rm -p 127.0.0.1:8080:80 entrelinhas-web
 | Atualizar indicadores, gráfico e meta | `GET /stats` |
 | Buscar título/autor externo | `GET /catalog/search` |
 
-Os cinco métodos HTTP exigidos/alternativos são usados de fato pelos controles da interface. Não há persistência simulada no navegador: livros e metas vivem no SQLite.
+Os cinco métodos HTTP **GET, POST, PATCH, PUT e DELETE** são usados pelos controles da interface e foram testados com sucesso, inclusive na validação Docker no GitHub Codespaces. Não há persistência simulada no navegador: livros e metas vivem no SQLite.
 
 ## API externa: Open Library
 
@@ -170,4 +176,4 @@ O teste usa o **Google Chrome já instalado**, sem baixar navegador, e cria um b
 
 Veja [matriz de requisitos](docs/REQUISITOS.md), [roteiro de vídeo de 5min40s](docs/ROTEIRO_VIDEO.md), [publicação dos dois repositórios](docs/PUBLICACAO.md) e [modelo de mensagem](docs/ENTREGA.md).
 
-**Pendências externas:** publicar os dois repositórios públicos, executar/validar os containers em um ambiente com Docker e gravar/publicar o vídeo. A existência destes arquivos não equivale à conclusão dessas etapas.
+Os dois repositórios estão publicados e públicos. A execução Docker foi validada no GitHub Codespaces, com ambos os containers healthy e integração testada.

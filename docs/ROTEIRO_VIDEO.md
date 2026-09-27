@@ -1,10 +1,10 @@
 # Roteiro da apresentação · 5 minutos e 40 segundos
 
-O PDF exige **um vídeo de até 6 minutos**, com os cinco tópicos abaixo, nessa ordem. Esta é uma preparação para gravação; nenhum vídeo foi gravado ou publicado automaticamente.
+O PDF exige **um vídeo de até 6 minutos**, com os cinco tópicos abaixo, nessa ordem. Este roteiro organiza a demonstração do projeto em **5min40s**. A validação Docker no GitHub Codespaces e a publicação dos dois repositórios públicos já foram concluídas.
 
 ## Preparação antes de gravar
 
-1. Tenha Docker em funcionamento e conclua a [validação dos containers](VALIDACAO.md).
+1. Tenha Docker em funcionamento para a gravação. A [validação dos containers](VALIDACAO.md) já foi concluída no GitHub Codespaces, com `entrelinhas-api` e `entrelinhas-web` healthy; confira novamente o ambiente que será demonstrado.
 2. Mantenha os dois repositórios como pastas irmãs e execute na pasta `entrelinhas-web`:
 
    ```powershell
@@ -13,7 +13,7 @@ O PDF exige **um vídeo de até 6 minutos**, com os cinco tópicos abaixo, nessa
    docker compose ps
    ```
 
-3. Abra três abas: interface `http://localhost:8080`, Swagger `http://localhost:8000/docs` e a imagem `docs/arquitetura.svg`.
+3. Abra três abas: interface `http://localhost:8080`, Swagger `http://localhost:8000/docs` e a imagem `docs/arquitetura.svg`. Se gravar no Codespaces, use os endereços encaminhados das portas 8080 e 8000; a porta 8000 precisou ser definida como pública durante os testes para as chamadas do navegador à API. A validação registrada ocorreu no Codespaces, sem validação do Docker Desktop no Windows local.
 4. Deixe o terminal com `docker compose ps` mostrando os dois serviços em execução e saudáveis. Só afirme que estão em Docker se estiverem realmente.
 5. Deixe o JSON abaixo pronto para copiar. No Swagger, use um livro exclusivo chamado “Leitura para apresentação”, para evitar duplicatas dos exemplos.
 6. Prepare uma consulta externa, como `Machado de Assis`, e confirme antes que a rede/provedor responde.
@@ -98,7 +98,7 @@ Reserve os últimos **10 segundos** para encerrar, totalizando **5min40s**, com 
 6. **Persistência:** recarregue a página e mostre que o registro permanece.
 7. **DELETE:** exclua o livro de demonstração pela confirmação. Mostre que a lista e os indicadores atualizam.
 
-Finalize mostrando os dois repositórios públicos e informando onde encontrar os READMEs, os Dockerfiles e o fluxograma. Não exponha credenciais, tokens ou abas pessoais.
+Finalize mostrando os dois repositórios já publicados e públicos, [entrelinhas-web](https://github.com/Ziragn/entrelinhas-web) e [entrelinhas-api](https://github.com/Ziragn/entrelinhas-api), e informando onde encontrar os READMEs, os Dockerfiles e o fluxograma. Não exponha credenciais, tokens ou abas pessoais.
 
 ## Conferência final
 

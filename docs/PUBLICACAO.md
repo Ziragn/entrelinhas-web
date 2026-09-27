@@ -1,6 +1,13 @@
 # Publicação dos dois componentes no GitHub
 
-O PDF exige **dois repositórios separados e públicos**. Os repositórios locais já estão separados. Esta documentação não significa que a publicação já aconteceu.
+O PDF exige **dois repositórios separados e públicos**. **CONCLUÍDO:** os dois componentes já estão publicados e públicos:
+
+- Interface: [Ziragn/entrelinhas-web](https://github.com/Ziragn/entrelinhas-web).
+- API: [Ziragn/entrelinhas-api](https://github.com/Ziragn/entrelinhas-api).
+
+A execução Docker também foi validada no **GitHub Codespaces**, com os containers `entrelinhas-api` e `entrelinhas-web` **healthy**, conforme [VALIDACAO.md](VALIDACAO.md).
+
+As seções 1 a 3 mantêm o procedimento de publicação inicial como referência. Essa etapa já foi concluída para os repositórios acima; não é necessário recriá-los ou adicionar novamente seus remotos.
 
 ## 1. Criar repositórios vazios
 
@@ -15,13 +22,13 @@ O acesso à sua conta deve acontecer pelos mecanismos de autenticação do GitHu
 
 ## 2. Publicar a interface
 
-Substitua `SEU_USUARIO` pelo seu usuário real, no terminal da pasta `entrelinhas-web`:
+Na publicação inicial da interface, os comandos abaixo usam o endereço do repositório do projeto. Execute comandos de Git no terminal da pasta `entrelinhas-web`:
 
 ```powershell
 git status --short
 git add .
 git commit -m "Implementa interface Entrelinhas com integracao REST e Docker"
-git remote add origin https://github.com/SEU_USUARIO/entrelinhas-web.git
+git remote add origin https://github.com/Ziragn/entrelinhas-web.git
 git push -u origin main
 ```
 
@@ -35,7 +42,7 @@ Na pasta `entrelinhas-api`:
 git status --short
 git add .
 git commit -m "Implementa API de leituras com SQLite Swagger e Open Library"
-git remote add origin https://github.com/SEU_USUARIO/entrelinhas-api.git
+git remote add origin https://github.com/Ziragn/entrelinhas-api.git
 git push -u origin main
 ```
 
@@ -56,13 +63,13 @@ Não foram criados commits com uma identidade inventada. Os comandos `git commit
 4. Em uma pasta nova, clone os dois repositórios como pastas irmãs:
 
    ```powershell
-   git clone https://github.com/SEU_USUARIO/entrelinhas-web.git
-   git clone https://github.com/SEU_USUARIO/entrelinhas-api.git
+   git clone https://github.com/Ziragn/entrelinhas-web.git
+   git clone https://github.com/Ziragn/entrelinhas-api.git
    cd entrelinhas-web
    docker compose up --build -d
    ```
 
-5. Faça a validação descrita em `VALIDACAO.md` e grave o vídeo.
-6. Preencha `ENTREGA.md` com links reais.
+5. Para preparar a gravação, reproduza a execução descrita em `VALIDACAO.md` e grave o vídeo. A validação Docker já foi concluída no Codespaces.
+6. Publique o vídeo e preencha seu link em `ENTREGA.md`; os links reais dos dois repositórios já estão preenchidos.
 
 A pasta agregadora com `.venv` e os atalhos locais não precisa ser publicada: cada README de componente contém as instruções para uma instalação independente.

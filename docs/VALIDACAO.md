@@ -1,6 +1,8 @@
 # Relatório de validação
 
-Data: **25/09/2026**. Ambiente: Windows, Python **3.13.7**, ambiente virtual local `.venv`, Google Chrome existente. Pacotes de execução e testes instalados apenas nesse ambiente virtual.
+Validação local registrada em **25/09/2026**. Ambiente: Windows, Python **3.13.7**, ambiente virtual local `.venv`, Google Chrome existente. Pacotes de execução e testes instalados apenas nesse ambiente virtual.
+
+A validação Docker foi realizada no **GitHub Codespaces** e está registrada em seção própria abaixo, conforme os resultados confirmados pelo responsável pelo projeto. Ela não corresponde a uma validação do Docker Desktop no Windows local.
 
 ## Verificado
 
@@ -65,20 +67,54 @@ Resposta recebida em 25/09/2026: **1.401 resultados totais**, com dois itens nor
 
 Os três módulos `app.js`, `ui.js` e `api.js` passaram em `node --check`, usando o Node já existente somente como ferramenta de verificação. Node não é necessário para executar o projeto e nenhum pacote npm foi instalado.
 
-## Ainda não verificado / não realizado
+### Docker no GitHub Codespaces — CONCLUÍDO
 
-| Item | Motivo |
+Na raiz de `entrelinhas-web`, foram executados:
+
+```sh
+docker compose up -d
+docker compose ps
+```
+
+Os dois containers ficaram saudáveis, conforme a conferência com `docker compose ps`:
+
+| Container | Porta utilizada | Resultado |
+| --- | --- | --- |
+| `entrelinhas-api` | 8000 | **healthy** |
+| `entrelinhas-web` | 8080 | **healthy** |
+
+No GitHub Codespaces, a porta **8000 precisou ser definida como pública durante os testes**, permitindo que o navegador chamasse a API. A interface foi acessada pela porta encaminhada **8080**, e o Swagger, pelo endereço encaminhado da porta **8000**, em `/docs`.
+
+O fluxo completo foi validado:
+
+```text
+Front-end em Docker → API Entrelinhas em Docker → Open Library
+                   → API Entrelinhas → Front-end
+```
+
+A pesquisa real por **“Dom Casmurro”** apresentou corretamente os resultados da Open Library na interface, após consumo e tratamento pela API Entrelinhas, sem redirecionar o usuário para outra aplicação.
+
+| Verificação | Resultado confirmado |
 | --- | --- |
-| Build e execução dos containers | Docker não está instalado no ambiente disponível |
-| Persistência real em volume Docker e healthchecks de containers | Depende de executar o Compose |
-| Publicação dos dois repositórios no GitHub | Precisa da conta/conexão e da publicação |
-| Gravação e publicação do vídeo de até 6 minutos | Depende da demonstração em Docker e gravação |
+| Swagger em `/docs` | **ATENDIDO — testado** |
+| Integração entre interface e API em Docker | **ATENDIDO — fluxo completo testado** |
+| GET | **ATENDIDO — consultas pela interface testadas com sucesso** |
+| POST de livro | **ATENDIDO — cadastro testado com sucesso** |
+| PATCH de progresso/status | **ATENDIDO — atualização testada com sucesso** |
+| PUT da meta anual | **ATENDIDO — alteração testada com sucesso** |
+| DELETE de livro | **ATENDIDO — exclusão testada com sucesso** |
+| SQLite e volume Docker | **ATENDIDO — dados preservados após derrubar e recriar os containers, mantendo o volume** |
 
-Não há alegação de que as etapas acima tenham passado. Os arquivos e o roteiro necessários estão preparados.
+### Publicação dos repositórios — CONCLUÍDO
 
-## Procedimento para completar a validação Docker
+Os dois repositórios estão publicados e públicos:
 
-Use uma máquina com Docker instalado. Na raiz `entrelinhas-web`:
+- Interface: [Ziragn/entrelinhas-web](https://github.com/Ziragn/entrelinhas-web).
+- API: [Ziragn/entrelinhas-api](https://github.com/Ziragn/entrelinhas-api).
+
+## Procedimento para reproduzir a validação Docker
+
+As instruções abaixo foram mantidas para reprodução e preparação da gravação; a validação Docker já foi concluída no Codespaces. Use um ambiente com Docker instalado. Na raiz `entrelinhas-web`:
 
 ```powershell
 docker compose config
@@ -87,7 +123,7 @@ docker compose ps
 ```
 
 1. Confira **api** e **web** como `healthy`.
-2. Abra `http://localhost:8080` e `http://localhost:8000/docs`.
+2. Localmente, abra `http://localhost:8080` e `http://localhost:8000/docs`. No Codespaces, use os endereços encaminhados das portas 8080 e 8000; para repetir as chamadas do navegador à API, defina a porta 8000 como pública durante os testes.
 3. Execute todas as operações da API conforme `ROTEIRO_VIDEO.md`.
 4. Cadastre um livro chamado **Teste de persistência Docker**, com 100 páginas.
 5. Execute `docker compose down`, depois `docker compose up -d`.
@@ -95,6 +131,6 @@ docker compose ps
 7. Em “Descobrir livros”, consulte “Machado de Assis”, importe, edite, marque como concluído e depois exclua apenas esse registro de teste.
 8. Salve uma meta anual, recarregue e confira sua persistência.
 9. Use `docker compose logs --no-color` se houver falhas; confirme que não há erros de permissão no volume nem de CORS.
-10. Registre data e resultados reais; só então marque Docker como validado na matriz.
+10. Se repetir a validação, registre a data e os resultados dessa nova execução. A matriz já registra como concluída a validação no Codespaces descrita acima.
 
 Para reproduzir os testes locais, consulte o README principal. O banco de testes é temporário e separado do banco pessoal.
