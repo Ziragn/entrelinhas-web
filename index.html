@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#244d43">
+  <meta name="description" content="Seu espaço para descobrir livros, organizar a estante e cultivar o hábito da leitura.">
+  <title>Entrelinhas · Seu espaço de leitura</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <script src="config.js"></script>
+  <script type="module" src="js/app.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Pular para o conteúdo</a>
+  <aside class="sidebar">
+    <a class="brand" href="#estante" aria-label="Entrelinhas, início"><span class="brand-icon" data-icon="book-open"></span><span>entrelinhas<span class="brand-dot">.</span></span></a>
+    <span class="nav-label">SEU UNIVERSO LITERÁRIO</span>
+    <nav aria-label="Navegação principal">
+      <a href="#estante" class="nav-item active" data-view="estante"><span data-icon="library"></span>Minha estante<span class="nav-count" id="nav-count">0</span></a>
+      <a href="#descobrir" class="nav-item" data-view="descobrir"><span data-icon="compass"></span>Descobrir livros</a>
+      <a href="#jornada" class="nav-item" data-view="jornada"><span data-icon="chart"></span>Minha jornada</a>
+    </nav>
+    <div class="sidebar-note"><span class="little-star">✳</span><p>Entre uma página<br>e outra, um novo mundo.</p><span>Reserve um tempo para você.</span></div>
+    <div class="sidebar-bottom"><span class="avatar">E</span><div><strong>Meu espaço</strong><small>Uma leitura de cada vez</small></div><span data-icon="leaf"></span></div>
+  </aside>
+
+  <div class="workspace">
+    <header class="topbar"><div class="breadcrumb">Meu espaço <span>/</span> <strong id="breadcrumb-view">Minha estante</strong></div><div class="topbar-right"><span class="date-label" id="today"></span><span class="avatar small">E</span></div></header>
+    <main id="main" tabindex="-1">
+      <section class="hero" id="hero">
+        <div class="hero-copy"><span class="eyebrow"><span class="tiny-spark">✦</span> HISTÓRIAS QUE FAZEM PARTE DE VOCÊ</span><h1>Um capítulo<br>de cada vez<span>.</span></h1><p>Organize suas leituras, descubra novos mundos<br class="desktop-break"> e encontre seu próximo livro favorito.</p><button class="button primary" id="hero-discover">Explorar livros <span data-icon="arrow-right"></span></button></div>
+        <div class="hero-art" aria-hidden="true"><span class="art-orbit orbit-one"></span><span class="art-orbit orbit-two"></span><span class="art-spark spark-one">✧</span><span class="art-spark spark-two">✳</span><div class="art-book art-back"><span>UM MUNDO<br>DE HISTÓRIAS</span><i>para descobrir</i></div><div class="art-book art-front"><span>mais um<br><em>capítulo.</em></span><div class="cover-sun"></div><i>e tantas possibilidades</i></div><div class="art-horizontal"></div><span class="art-leaf leaf-one"></span><span class="art-leaf leaf-two"></span><span class="art-caption">o seu próximo mundo está aqui</span></div>
+      </section>
+
+      <div id="global-error" class="alert error" role="alert" hidden></div>
+      <section class="metrics" id="metrics" aria-label="Resumo da sua estante"></section>
+
+      <section id="view-estante" class="view">
+        <div class="dashboard-columns">
+          <div class="shelf">
+            <div class="section-heading"><div><span class="eyebrow muted">UM LUGAR PARA CADA HISTÓRIA</span><h2>Minha estante <span id="shelf-total" class="subtle-count"></span></h2></div><button class="button primary" id="add-book"><span data-icon="plus"></span>Adicionar livro</button></div>
+            <div class="shelf-tabs" role="group" aria-label="Filtrar por situação"><button data-status="" class="active">Todos <span id="count-all">0</span></button><button data-status="lendo">Lendo <span id="count-reading">0</span></button><button data-status="quero_ler">Quero ler <span id="count-want">0</span></button><button data-status="concluido">Concluídos <span id="count-done">0</span></button></div>
+            <div class="shelf-toolbar"><label class="search-field"><span data-icon="search"></span><input id="shelf-search" type="search" placeholder="Buscar na minha estante..." aria-label="Buscar na minha estante" maxlength="200"></label><label class="sort-field"><span data-icon="sort"></span><select id="shelf-sort" aria-label="Ordenar livros"><option value="recentes">Mais recentes</option><option value="titulo">Título A–Z</option><option value="progresso">Maior progresso</option><option value="avaliacao">Melhor avaliação</option></select></label></div>
+            <div id="books-grid" class="books-grid" aria-live="polite" aria-busy="true"></div>
+            <div id="shelf-pagination" class="pagination"></div>
+            <p id="demo-notice" class="demo-notice" hidden><span data-icon="info"></span>Esta estante contém livros de demonstração. Edite ou exclua para deixá-la com a sua cara.</p>
+          </div>
+          <aside class="reading-sidebar" aria-label="Sua jornada de leitura">
+            <section class="goal-panel"><div class="panel-heading"><span class="eyebrow">SEU PRÓXIMO CAPÍTULO</span><span data-icon="target"></span></div><h3>Pequenos passos,<br>grandes histórias.</h3><p>Sua meta de leitura para <span id="goal-year"></span></p><div id="goal-ring" class="goal-ring"><div><strong id="goal-completed">0</strong><span>de <b id="goal-target">12</b> livros</span></div></div><p id="goal-message" class="goal-message"></p><button class="button outline" id="edit-goal"><span data-icon="edit"></span>Ajustar minha meta</button></section>
+            <section class="activity-panel"><div class="panel-heading"><h3>Ritmo de leitura</h3><span data-icon="chart"></span></div><p>Livros concluídos nos últimos 6 meses</p><div id="mini-chart" class="bar-chart" role="img" aria-label="Histórico de leituras"></div><div class="chart-caption"><span class="legend-dot"></span>Cada livro, uma nova perspectiva.</div></section>
+            <div class="quiet-note"><span data-icon="book-open"></span><p>Não importa a velocidade.<br>O importante é a próxima página.</p></div>
+          </aside>
+        </div>
+      </section>
+
+      <section id="view-descobrir" class="view" hidden>
+        <div class="section-heading"><div><span class="eyebrow muted">SUA PRÓXIMA BOA HISTÓRIA</span><h2>Descobrir livros</h2><p class="section-description">Busque por título ou autor e traga novos livros para a sua estante.</p></div><span class="source-badge"><span class="legend-dot"></span>Catálogo Open Library</span></div>
+        <form id="catalog-form" class="catalog-search"><label class="search-field"><span data-icon="search"></span><input id="catalog-query" type="search" required minlength="2" maxlength="150" placeholder="Qual história você quer encontrar?" aria-label="Título ou autor no Open Library"></label><button class="button primary" type="submit">Buscar livros <span data-icon="arrow-right"></span></button></form>
+        <div class="suggestions"><span>Experimente:</span><button data-query="Machado de Assis">Machado de Assis</button><button data-query="Jane Austen">Jane Austen</button><button data-query="Clarice Lispector">Clarice Lispector</button></div>
+        <div id="catalog-results" class="catalog-grid" aria-live="polite"></div><div id="catalog-pagination" class="pagination"></div>
+        <p class="source-note">Metadados fornecidos pelo Open Library, uma iniciativa do Internet Archive. A quantidade de páginas pode variar conforme a edição.</p>
+      </section>
+
+      <section id="view-jornada" class="view" hidden><div class="section-heading"><div><span class="eyebrow muted">SUAS HISTÓRIAS EM NÚMEROS</span><h2>Minha jornada</h2><p class="section-description">Um olhar sobre os livros que acompanham você.</p></div><button id="journey-goal" class="button primary">Ajustar meta <span data-icon="target"></span></button></div><div id="journey-content" class="journey-grid"></div></section>
+      <footer class="footer"><span class="footer-brand">entrelinhas.</span><span>Seu tempo. Suas histórias.</span><a id="api-docs-link" href="http://localhost:8000/docs" target="_blank" rel="noopener">Documentação da API <span data-icon="external"></span></a></footer>
+    </main>
+  </div>
+
+  <dialog id="book-dialog" aria-labelledby="book-dialog-title"><form id="book-form"><header class="modal-header"><div><span class="eyebrow muted">SUA ESTANTE, DO SEU JEITO</span><h2 id="book-dialog-title">Adicionar livro</h2></div><button type="button" class="icon-button" data-close="book-dialog" aria-label="Fechar formulário"><span data-icon="x"></span></button></header><div class="modal-body"><p id="book-source" class="source-note" hidden></p><input id="book-id" type="hidden"><input id="book-source-id" type="hidden"><label>Título<input id="book-title" required maxlength="250" placeholder="O nome da sua próxima história"></label><label>Autor(a)<input id="book-author" required maxlength="200" placeholder="Quem escreveu este livro?"></label><div class="form-row"><label>Categoria<input id="book-genre" required maxlength="60" value="Literatura" list="genres"></label><datalist id="genres"><option>Literatura brasileira</option><option>Romance</option><option>Ficção</option><option>Filosofia</option><option>Biografia</option><option>Fantasia</option><option>Não ficção</option></datalist><label>Situação<select id="book-status"><option value="quero_ler">Quero ler</option><option value="lendo">Lendo</option><option value="concluido">Concluído</option></select></label></div><div class="form-row"><label>Total de páginas<input id="book-pages" type="number" min="1" max="50000" required value="200"></label><label>Página atual<input id="book-current" type="number" min="0" max="50000" required value="0"></label></div><label>Sua avaliação<select id="book-rating"><option value="0">Ainda não avaliei</option><option value="1">★ · 1 estrela</option><option value="2">★★ · 2 estrelas</option><option value="3">★★★ · 3 estrelas</option><option value="4">★★★★ · 4 estrelas</option><option value="5">★★★★★ · 5 estrelas</option></select></label><label>Notas de leitura <span class="optional">opcional</span><textarea id="book-notes" rows="3" maxlength="5000" placeholder="O que você quer guardar desta leitura?"></textarea></label><p id="book-form-error" class="form-error" role="alert" hidden></p></div><footer class="modal-footer"><button class="button secondary" type="button" data-close="book-dialog">Cancelar</button><button class="button primary" id="save-book" type="submit">Salvar livro <span data-icon="check"></span></button></footer></form></dialog>
+
+  <dialog id="delete-dialog" class="small-dialog" aria-labelledby="delete-title"><form id="delete-form"><header class="modal-header"><h2 id="delete-title">Tirar da estante?</h2><button type="button" class="icon-button" data-close="delete-dialog" aria-label="Fechar confirmação"><span data-icon="x"></span></button></header><div class="modal-body"><p id="delete-description"></p><p class="source-note">O progresso e as notas deste livro também serão excluídos.</p><p id="delete-error" class="form-error" role="alert" hidden></p></div><footer class="modal-footer"><button class="button secondary" type="button" data-close="delete-dialog">Manter livro</button><button type="submit" class="button danger" id="confirm-delete">Excluir livro</button></footer></form></dialog>
+
+  <dialog id="goal-dialog" class="small-dialog" aria-labelledby="goal-title"><form id="goal-form"><header class="modal-header"><h2 id="goal-title">Sua meta, seu ritmo.</h2><button type="button" class="icon-button" data-close="goal-dialog" aria-label="Fechar meta"><span data-icon="x"></span></button></header><div class="modal-body"><p>Quantos livros você gostaria de concluir neste ano?</p><label>Livros no ano<input id="goal-input" type="number" min="1" max="365" required value="12"></label><p class="source-note">Você pode ajustar sua meta sempre que precisar.</p><p id="goal-error" class="form-error" role="alert" hidden></p></div><footer class="modal-footer"><button type="button" class="button secondary" data-close="goal-dialog">Cancelar</button><button class="button primary" id="save-goal" type="submit">Salvar meta</button></footer></form></dialog>
+  <div id="toast" class="toast" role="status" hidden></div>
+</body>
+</html>

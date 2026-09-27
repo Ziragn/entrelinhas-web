@@ -1,0 +1,25 @@
+name: entrelinhas
+services:
+  api:
+    build:
+      context: ../entrelinhas-api
+    ports:
+      - "127.0.0.1:8000:8000"
+    environment:
+      DATABASE_PATH: /app/data/entrelinhas.db
+      CORS_ORIGINS: http://localhost:8080,http://127.0.0.1:8080
+      OPEN_LIBRARY_USER_AGENT: ${OPEN_LIBRARY_USER_AGENT:-Entrelinhas/1.0 (educational reading organizer)}
+    volumes:
+      - reading-data:/app/data
+    restart: unless-stopped
+  web:
+    build:
+      context: .
+    ports:
+      - "127.0.0.1:8080:80"
+    depends_on:
+      api:
+        condition: service_healthy
+    restart: unless-stopped
+volumes:
+  reading-data:

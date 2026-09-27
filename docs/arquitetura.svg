@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="750" viewBox="0 0 1280 750" role="img" aria-labelledby="title desc">
+  <title id="title">Arquitetura Entrelinhas — cenário 1.1</title>
+  <desc id="desc">Interface HTML, CSS e JavaScript em um container Nginx. O navegador chama a API Python FastAPI por REST e JSON. A API persiste em SQLite e consulta o serviço externo Open Library via HTTPS. Os dois componentes próprios têm repositórios e Dockerfiles independentes.</desc>
+  <defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="7" refY="3" orient="auto-start-reverse"><path d="M0 0 L0 6 L8 3 Z" fill="#718960"/></marker></defs>
+  <rect width="1280" height="750" fill="#faf9f6" rx="20"/>
+  <g font-family="Segoe UI,Arial,sans-serif" fill="#244d43">
+    <text x="65" y="70" font-family="Georgia,serif" font-size="38">entrelinhas.</text><text x="65" y="107" font-size="16" fill="#7b827b">Três componentes autônomos · REST / JSON · Cenário 1.1</text>
+    <rect x="60" y="175" width="290" height="210" rx="18" fill="#eaf0e7" stroke="#cdd9c4"/>
+    <text x="85" y="211" font-size="12" letter-spacing="2">COMPONENTE PRINCIPAL</text><text x="85" y="256" font-family="Georgia,serif" font-size="28">Interface web</text>
+    <text x="85" y="291" font-size="16">HTML · CSS · JavaScript</text><text x="85" y="321" font-size="14" fill="#77866c">Nginx em Docker / porta 8080</text><text x="85" y="354" font-size="14">Repositório: entrelinhas-web</text>
+    <rect x="495" y="175" width="290" height="210" rx="18" fill="#244d43"/>
+    <g fill="#fff"><text x="520" y="211" font-size="12" letter-spacing="2">COMPONENTE BACK-END</text><text x="520" y="256" font-family="Georgia,serif" font-size="28">API de leituras</text><text x="520" y="291" font-size="16">Python · FastAPI · Swagger</text><text x="520" y="321" font-size="14" fill="#c9d8bf">Uvicorn em Docker / porta 8000</text><text x="520" y="354" font-size="14">Repositório: entrelinhas-api</text></g>
+    <rect x="930" y="175" width="290" height="210" rx="18" fill="#f1eadb" stroke="#e2d6bb"/>
+    <text x="955" y="211" font-size="12" letter-spacing="2">COMPONENTE EXTERNO</text><text x="955" y="256" font-family="Georgia,serif" font-size="28">Open Library</text><text x="955" y="291" font-size="16">Busca bibliográfica pública</text><text x="955" y="321" font-size="14" fill="#8c8168">Gratuita · sem chave de API</text><text x="955" y="354" font-size="14">GET /search.json</text>
+    <g stroke="#718960" stroke-width="2" fill="none" marker-start="url(#arrow)" marker-end="url(#arrow)"><path d="M363 274H482"/><path d="M798 274H917"/><path d="M640 399V499"/></g>
+    <g font-size="12" text-anchor="middle" fill="#758469"><text x="423" y="246">HTTP / JSON</text><text x="423" y="309">GET · POST</text><text x="423" y="329">PATCH · DELETE</text><text x="423" y="349">PUT (meta)</text><text x="858" y="246">HTTPS / JSON</text><text x="858" y="309">Cache 15 min</text><text x="858" y="329">Limite 1 req/s</text><text x="720" y="461">SQL parametrizado</text></g>
+    <rect x="495" y="514" width="290" height="130" rx="17" fill="#eeeaf3" stroke="#d7cfdf"/><text x="520" y="554" font-family="Georgia,serif" font-size="28">SQLite</text><text x="520" y="585" font-size="15">Livros · progresso · notas · metas</text><text x="520" y="617" font-size="13" fill="#857590">Volume persistente: reading-data</text>
+    <rect x="60" y="514" width="355" height="130" rx="17" fill="#fff" stroke="#e3e7dc"/><text x="83" y="547" font-size="15">Repositórios e imagens independentes</text><text x="83" y="577" font-size="13" fill="#7b827b">Dockerfile na raiz de cada componente</text><text x="83" y="605" font-size="13" fill="#7b827b">compose.yaml na raiz de entrelinhas-web</text><text x="83" y="631" font-size="13" fill="#7b827b">.venv local: nenhuma instalação Python global</text>
+    <text x="65" y="710" font-size="13" fill="#8d9684">O navegador permanece no Entrelinhas. A API trata os dados externos e os devolve à interface.</text>
+  </g>
+</svg>
